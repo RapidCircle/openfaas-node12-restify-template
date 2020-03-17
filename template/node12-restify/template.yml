@@ -9,4 +9,3 @@ welcome_message: |
 
   Unit tests are run at build time via "npm run", edit package.json to specify 
   how you want to execute them.
-

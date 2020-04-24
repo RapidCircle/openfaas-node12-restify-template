@@ -26,7 +26,7 @@ class FunctionContext {
     }
 
     status(value) {
-        if(!value) {
+        if (!value) {
             return this.value;
         }
 
@@ -35,12 +35,12 @@ class FunctionContext {
     }
 
     headers(value) {
-        if(!value) {
+        if (!value) {
             return this.headerValues;
         }
 
         this.headerValues = value;
-        return this;    
+        return this;
     }
 
     succeed(value) {
@@ -63,7 +63,9 @@ var middleware = async (req, res) => {
             return res.send(500, err.toString ? err.toString() : err);
         }
 
-        if(isArray(functionResult) || isObject(functionResult)) {
+        let acceptsJson = req.headers['accept'] === 'application/json';
+
+        if (!acceptsJson && (isArray(functionResult) || isObject(functionResult))) {
             res.send(fnContext.status(), JSON.stringify(functionResult));
         } else {
             res.send(fnContext.status(), functionResult);
@@ -74,14 +76,14 @@ var middleware = async (req, res) => {
     let fnContext = new FunctionContext(cb);
 
     Promise.resolve(handler(fnEvent, fnContext, cb))
-    .then(res => {
-        if(!fnContext.cbCalled) {
-            fnContext.succeed(res);
-        }
-    })
-    .catch(e => {
-        cb(e);
-    });
+        .then(res => {
+            if (!fnContext.cbCalled) {
+                fnContext.succeed(res);
+            }
+        })
+        .catch(e => {
+            cb(e);
+        });
 };
 
 app.use(restify.plugins.acceptParser(app.acceptable));

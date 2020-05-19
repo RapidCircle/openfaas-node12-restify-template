@@ -1,6 +1,6 @@
 # openfaas-node12-restify Template
 Restify based endpoint on Node 12 runtime that makes parsing a large number of content types easy out of the box.
-Background article on this template : https://hans.deakkertjes.nl/openfaas-node12-restify
+Background article on this template : https://medium.com/@therealburningman/an-openfaas-multipart-body-processing-custom-language-template-based-on-node12-and-restify-7e9e8a78f9be
 
 # Usage
 ``` bash

@@ -14,6 +14,7 @@ class FunctionEvent {
         this.method = req.method;
         this.query = req.query;
         this.path = req.path;
+        this.files = req.files;
     }
 }
 
